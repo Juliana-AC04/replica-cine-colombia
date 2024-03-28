@@ -40,7 +40,7 @@ export default function MovieDetails() {
                 </div>
             )}
             <div className="max-w-full mt-5">
-                <h3 className="text-lg text-base font-bold text-slate-600">Trailer</h3>
+                <h3 className="text-lg font-bold text-slate-600">Trailer</h3>
                 {video && <iframe src={`https://www.youtube.com/embed/${video}`} title="movie-trailer" className="w-full h-64" />}
                 <h3 className="text-lg font-bold text-slate-600 mt-5">Sinopsis</h3>
                 <p className="text-lg font-normal">{movie?.overview}</p>
