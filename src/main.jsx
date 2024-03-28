@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Index from './pages/Index'
+import IndexRouter from './router/IndexRouter'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Index/>
+    <IndexRouter></IndexRouter>
   </React.StrictMode>,
 )
