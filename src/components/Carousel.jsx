@@ -74,16 +74,14 @@ const Carousel = () => {
 
     const handleImageClick = index => {
       console.log('Clicked image title:', images[index].title);
-      
-      const halfwayIndex = Math.floor(images.length / 2);
-      let slidesToMove = halfwayIndex - index;
-      if (slidesToMove < 0) {
-          slidesToMove += images.length;
-      }
-      const targetSlide = currentSlide + slidesToMove;
-      sliderRef.current.slickGoTo(targetSlide >= images.length ? targetSlide - images.length : targetSlide);
+        const halfwayIndex = Math.floor(images.length / 2);
+        let slidesToMove = halfwayIndex - index;
+        if (slidesToMove < 0) {
+            slidesToMove += images.length;
+        }
+        sliderRef.current.slickGoTo(currentSlide + slidesToMove);
     };
-    
+
     return (
         <Slider {...settings} ref={sliderRef}>
             {images.map((image, index) => (
@@ -102,5 +100,4 @@ const Carousel = () => {
         </Slider>
     );
 };
-
 export default Carousel;
