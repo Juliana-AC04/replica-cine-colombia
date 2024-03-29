@@ -21,8 +21,8 @@ export default function Index() {
   return (
     <div>
       <Header></Header>
-      <MovieDetails></MovieDetails>
       <Carousel></Carousel>
+      <MovieDetails></MovieDetails>
       <ListMovies></ListMovies>
     </div>
   )
