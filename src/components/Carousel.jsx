@@ -2,8 +2,39 @@ import React, { useState, useEffect, useRef } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import '../styles/carousel.css';
+import styled from 'styled-components'; 
 import { getAllMovies } from '../services/movieServices';
+
+const StyledCarousel = styled(Slider)`
+  .container {
+    height: 32rem;
+  }
+
+  #img {
+    height: 25rem;
+  }
+
+  .carousel-item {
+    opacity: 0.8; 
+    position: relative;
+    text-align: center;
+  }
+
+  .highlighted {
+    opacity: 1; 
+    transform: scale(1.1); 
+    z-index: 1; 
+    transition: transform 0.3s ease; 
+  
+  img {
+    border-radius: 0.5rem; 
+  }
+}
+  .movie-info {
+    position: absolute;
+    bottom: 7rem; 
+  }
+`;
 
 const Carousel = () => {
     const [images, setImages] = useState([]);
@@ -73,17 +104,12 @@ const Carousel = () => {
     };
 
     const handleImageClick = index => {
-      console.log('Clicked image title:', images[index].title);
-        const halfwayIndex = Math.floor(images.length / 2);
-        let slidesToMove = halfwayIndex - index;
-        if (slidesToMove < 0) {
-            slidesToMove += images.length;
-        }
-        sliderRef.current.slickGoTo(currentSlide + slidesToMove);
+        console.log('Clicked image title:', images[index].title);
+        sliderRef.current.slickGoTo(index);
     };
 
     return (
-        <Slider {...settings} ref={sliderRef}>
+        <StyledCarousel {...settings} ref={sliderRef}>
             {images.map((image, index) => (
                 <div key={image.id} className={`carousel-item ${index === currentSlide ? 'highlighted' : ''}`} onClick={() => handleImageClick(index)}>
                     <div className="container relative">
@@ -97,7 +123,8 @@ const Carousel = () => {
                     </div>
                 </div>
             ))}
-        </Slider>
+        </StyledCarousel>
     );
 };
+
 export default Carousel;
