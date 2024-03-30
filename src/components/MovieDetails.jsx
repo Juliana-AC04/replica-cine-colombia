@@ -22,7 +22,7 @@ export default function MovieDetails() {
     }, []);
 
     return (
-        <div className="max-w-full sm:w-3/6 p-5 m-5">
+        <div className="max-w-full md:w-1/2 p-5 m-5">
             {movie && (
                 <div className="flex flex-row">
                     <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.original_title} className="w-1/2 md:w-32 lg:w-48 h-auto" />
@@ -30,10 +30,10 @@ export default function MovieDetails() {
                         <h2 className="text-2xl font-bold text-gray-600">{movie.original_title}</h2>
                         <p className="text-lg text-gray-500">{movie.release_date}</p>
                         <div className="w-1/2 flex flex-wrap">
-                            <span className="bg-[#a8a29e] text-white mt-1 mr-1 p-2 rounded">{movie.vote_average} Votos</span>
+                            <span className="bg-stone-700 text-white mt-1 mr-1 p-2 rounded">{movie.vote_average} Votos</span>
                             <span className="bg-[#020617] text-white mt-1 mr-1 p-2 rounded">{movie.runtime} min</span>
                             {movie.genres.map((genre) => (
-                                <span key={genre.id} className="bg-[#1e3a8a] text-white mt-1 mr-1 p-2 rounded">{genre.name}</span>
+                                <span key={genre.id} className="bg-blue-950 text-white mt-1 mr-1 p-2 rounded">{genre.name}</span>
                             ))}
                         </div>
                     </div>
