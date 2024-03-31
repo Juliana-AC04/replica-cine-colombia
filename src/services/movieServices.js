@@ -30,3 +30,13 @@ export const getTrailerMovie = async (idMovie)=>{
         return []
     }
 }
+
+export const getGenres = async () => {
+    try {
+        const response = await axios.get(endpoint.getGenres);
+        return response.data.genres;
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
