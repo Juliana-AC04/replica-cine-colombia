@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Login } from '../../pages/Login/Login'
 
@@ -77,6 +77,7 @@ const fechas = [
   
 
 export const NavBar = () => {
+    const location = useLocation();
     const [showLogin, setShowLogin] = useState(false);
 
     const openLogin = () => {
@@ -86,6 +87,8 @@ export const NavBar = () => {
     const closeLogin = () => {
         setShowLogin(false);
     };
+
+    const showFilterButtons = location.pathname === '/';
 
     return (
         <StyledNav>
@@ -101,6 +104,23 @@ export const NavBar = () => {
                         </NavLink>
                     </li>)
                     }
+
+                    {showFilterButtons && (
+                        <>
+                            <li>
+                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Acción</button>                                
+                            </li>
+                            <li>
+                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Terror</button>                                
+                            </li>
+                            <li>
+                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>                                
+                            </li>
+                            <li>
+                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Comedia</button>                                
+                            </li>
+                        </>
+                    )}
                                       
                     <li className='inputsLayo'>
                         <label htmlFor="cines">Cines cercanos</label>
