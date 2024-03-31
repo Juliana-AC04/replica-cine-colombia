@@ -55,6 +55,17 @@ const StyledNav = styled.nav`
         }
     }
 
+    @media (max-width: 1047px) { /* Ajustar el tamaño a tus necesidades */
+        ul {
+            flex-direction: column; 
+            align-items: center;
+            height: auto; 
+        }
+
+        .inputsLayo select {
+            width: 100%; /* Ocupar todo el ancho disponible */
+        }
+    }
 
 `
 
@@ -117,7 +128,7 @@ export const NavBar = () => {
                                 <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Terror</button>                                
                             </li>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>                                
+                                <button className="mt-4 w-44 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>                                
                             </li>
                             <li>
                                 <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Comedia</button>                                

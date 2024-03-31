@@ -7,7 +7,8 @@ import { getAllMovies } from '../services/movieServices';
 
 const StyledCarousel = styled(Slider)`
   .container {
-    height: 32rem;
+    height: 26rem;
+    background-color: black;
   }
 
   #img {
@@ -25,6 +26,7 @@ const StyledCarousel = styled(Slider)`
     transform: scale(1.1); 
     z-index: 1; 
     transition: transform 0.3s ease; 
+    background-color: black;
   
   img {
     border-radius: 0.5rem; 
@@ -89,6 +91,7 @@ const Carousel = () => {
         centerPadding: '0',
         autoplay: true,
         autoplaySpeed: 3000,
+        className: 'bg-black',
         responsive: [
             {
                 breakpoint: 768,

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const SyledModal = styled.div `
     position: fixed;
+    z-index: 2; 
     top: 0;
     left: 0;
     width:100vw;
