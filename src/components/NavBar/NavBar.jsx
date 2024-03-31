@@ -30,6 +30,7 @@ const StyledNav = styled.nav`
             line-height: 22px; 
             font-weight: 700; 
             color: gray;
+            
         }
         select {
             width: 222px; 
@@ -46,9 +47,11 @@ const StyledNav = styled.nav`
             border-width: 1px; 
             border-color: #565D6DFF; 
             outline: none; 
+            
         }
         option {
-            background: black; 
+            background: black;
+             
         }
     }
 

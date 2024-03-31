@@ -1,28 +1,19 @@
-import { useEffect, useState } from "react";
 import Carousel from "../components/Carousel";
 import Header from "../components/Header";
 import ListMovies from "../components/ListMovies";
-import { getAllMovies} from "../services/movieServices";
 import MovieDetails from "../components/MovieDetails";
+import Schedule from "../components/Schedule";
 
 
 export default function Index() {
-
-  const [movies, setmovies] = useState([])
-  
-
-  useEffect(() => {
-    getAllMovies().then((response) => {
-      console.log("todas",response);
-      setmovies(response);
-    }).catch((error) => console.error(error));
-  }, [])
-
   return (
     <div>
       <Header></Header>
-      <MovieDetails></MovieDetails>
       <Carousel></Carousel>
+      <div className="flex flex-col sm:flex-row">
+        <MovieDetails></MovieDetails>
+        <Schedule></Schedule>
+      </div>
       <ListMovies></ListMovies>
     </div>
   )
