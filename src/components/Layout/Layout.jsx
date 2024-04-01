@@ -11,7 +11,7 @@ const Layout = () => {
         <NavBar/>
         <Carousel/>
         <Outlet/>
-        <TicketSelection/>
+        {/* <TicketSelection/> */}
     </div>
   )
 }

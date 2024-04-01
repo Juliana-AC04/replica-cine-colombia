@@ -7,12 +7,12 @@ import Schedule from "../components/Schedule";
 export default function Index() {
   return (
     <div>
-      <Header></Header>
+      <Header/>
       <div className="flex flex-col sm:flex-row">
-        <MovieDetails></MovieDetails>
-        <Schedule></Schedule>
+        <MovieDetails/>
+        <Schedule/>
       </div>
-      <ListMovies></ListMovies>
+      <ListMovies/>
     </div>
     
    

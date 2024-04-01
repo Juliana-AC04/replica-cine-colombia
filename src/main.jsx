@@ -4,6 +4,6 @@ import IndexRouter from './router/IndexRouter'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <IndexRouter></IndexRouter>
+    <IndexRouter/>
   </React.StrictMode>,
 )
