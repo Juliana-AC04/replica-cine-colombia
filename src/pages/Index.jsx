@@ -14,5 +14,7 @@ export default function Index() {
       </div>
       <ListMovies></ListMovies>
     </div>
+    
+   
   )
 }
