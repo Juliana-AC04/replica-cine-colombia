@@ -1,3 +1,4 @@
+import { CompraForm } from "../components/FormCompra/CompraForm";
 import Header from "../components/Header";
 import ListMovies from "../components/ListMovies";
 import MovieDetails from "../components/MovieDetails";
@@ -13,6 +14,7 @@ export default function Index() {
         <Schedule></Schedule>
       </div>
       <ListMovies></ListMovies>
+      <CompraForm></CompraForm>
     </div>
   )
 }
