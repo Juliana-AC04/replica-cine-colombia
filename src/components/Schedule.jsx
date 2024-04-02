@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 
 
@@ -84,6 +84,7 @@ export default function Schedule() {
               Cancelar
             </button>
           </div>
+          {showSummary && <Navigate to="/tickets" replace />}
         </div>
       )}
     </div>

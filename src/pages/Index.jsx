@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import ListMovies from "../components/ListMovies";
 import MovieDetails from "../components/MovieDetails";
 import Schedule from "../components/Schedule";
+import Seats from "../components/Seats";
 
 
 export default function Index() {
@@ -15,6 +16,7 @@ export default function Index() {
       </div>
       <ListMovies/>
       <CompraForm/>
+      <Seats></Seats>
     </div>
     
    

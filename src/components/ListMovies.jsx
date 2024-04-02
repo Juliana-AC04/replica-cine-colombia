@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMovie, getAllMovies, getGenres } from "../services/movieServices";
+import { Navigate } from "react-router-dom";
 
 const getClassification = (adult, voteAverage) => {
   if (adult) {
@@ -14,6 +15,11 @@ const getClassification = (adult, voteAverage) => {
 };
 
 const Items = ({ movies, genres, movieRuntimes }) => {
+  const [showDetails, setShowDetails] = useState(false);
+  const handleClick = (id) => {
+    sessionStorage.setItem('idMovie', id);
+    setShowDetails(true);
+  };
   return (
     <>
       {movies.slice(0, 4).map((movie) => (
@@ -28,6 +34,7 @@ const Items = ({ movies, genres, movieRuntimes }) => {
               className={`shadow-md w-56 h-full rounded-md ${'lg:w-[90%] lg:h-[18rem]'}`}
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt={`${movie.title}`}
+              onClick={() => handleClick(movie.id)}
             />
           </figure>
           <div className=" lg:w-[14.7rem] ">
@@ -62,6 +69,7 @@ const Items = ({ movies, genres, movieRuntimes }) => {
             </div>
           </figcaption>
           </div>
+          {showDetails && <Navigate to="/details" replace />}
         </li>
       ))}
     </>
@@ -72,6 +80,7 @@ export default function ListMovies() {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState({});
   const [movieRuntimes, setMovieRuntimes] = useState({});
+  
 
   useEffect(() => {
     const showData = async () => {
