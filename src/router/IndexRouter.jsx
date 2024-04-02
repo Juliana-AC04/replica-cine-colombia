@@ -7,6 +7,7 @@ import { Login } from '../pages/Login/Login';
 import { CompraForm } from '../components/FormCompra/CompraForm';
 import ResumenCompra from '../components/FormCompra/ResumenCompraForm';
 import Details from '../pages/Details/Details';
+import Tickets from '../pages/Tickets/Tickets';
 
 
 
@@ -20,6 +21,7 @@ const IndexRouter = () => {
           <Route index element={<Index />} />
 
           <Route path="/details" element={<Details />} />
+          <Route path="/tickets" element={<Tickets />} />
           {/* <Route path="/" element= { <Index/>}> 
           </Route> */}
           {/* <Route path="movie" element={<Schedule />}>
