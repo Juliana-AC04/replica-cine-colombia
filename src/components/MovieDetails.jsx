@@ -4,9 +4,10 @@ import { getMovie, getTrailerMovie } from "../services/movieServices";
 export default function MovieDetails() {
     const [movie, setMovie] = useState(null);
     const [video, setVideo] = useState("");
+    const IdMovie = sessionStorage.getItem('idMovie');
 
     useEffect(() => {
-        getMovie(1011985)
+        getMovie(IdMovie)
             .then((response) => {
                 setMovie(response);
             })
@@ -14,7 +15,7 @@ export default function MovieDetails() {
     }, []);
 
     useEffect(() => {
-        getTrailerMovie(1011985)
+        getTrailerMovie(IdMovie)
             .then((response) => {
                 setVideo(response.key);
             })

@@ -14,6 +14,9 @@ const getClassification = (adult, voteAverage) => {
 };
 
 const Items = ({ movies, genres, movieRuntimes }) => {
+  const handleClick = (id) => {
+    sessionStorage.setItem('idMovie', id);
+  };
   return (
     <>
       {movies.slice(0, 4).map((movie) => (
@@ -28,6 +31,7 @@ const Items = ({ movies, genres, movieRuntimes }) => {
               className={`shadow-md w-56 h-full rounded-md ${'lg:w-[90%] lg:h-[18rem]'}`}
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt={`${movie.title}`}
+              onClick={() => handleClick(movie.id)}
             />
           </figure>
           <div className=" lg:w-[14.7rem] ">
