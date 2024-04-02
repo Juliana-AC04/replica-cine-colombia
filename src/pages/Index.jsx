@@ -1,3 +1,4 @@
+import { CompraForm } from "../components/FormCompra/CompraForm";
 import Header from "../components/Header";
 import ListMovies from "../components/ListMovies";
 import MovieDetails from "../components/MovieDetails";
@@ -8,13 +9,17 @@ import Seats from "../components/Seats";
 export default function Index() {
   return (
     <div>
-      <Header></Header>
+      <Header/>
       <ListMovies></ListMovies>
       <div className="flex flex-col sm:flex-row">
-        <MovieDetails></MovieDetails>
-        <Schedule></Schedule>
+        <MovieDetails/>
+        <Schedule/>
       </div>
+      <ListMovies/>
+      <CompraForm/>
       <Seats></Seats>
     </div>
+    
+   
   )
 }
