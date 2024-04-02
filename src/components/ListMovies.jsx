@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMovie, getAllMovies, getGenres } from "../services/movieServices";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const getClassification = (adult, voteAverage) => {
   if (adult) {
@@ -15,10 +15,10 @@ const getClassification = (adult, voteAverage) => {
 };
 
 const Items = ({ movies, genres, movieRuntimes }) => {
-  const [showDetails, setShowDetails] = useState(false);
-  const handleClick = (id) => {
-    sessionStorage.setItem('idMovie', id);
-    setShowDetails(true);
+  // const [showDetails, setShowDetails] = useState(false);
+  const navigate = useNavigate();
+  const handleClick = idMovie => {
+    navigate(`details/${idMovie}`);
   };
   return (
     <>
@@ -69,7 +69,6 @@ const Items = ({ movies, genres, movieRuntimes }) => {
             </div>
           </figcaption>
           </div>
-          {showDetails && <Navigate to="/details" replace />}
         </li>
       ))}
     </>
