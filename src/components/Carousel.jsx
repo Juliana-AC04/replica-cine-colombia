@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components'; 
 import { getAllMovies } from '../services/movieServices';
+import { Navigate } from 'react-router-dom';
 
 const StyledCarousel = styled(Slider)`
   .container {
@@ -41,6 +42,7 @@ const StyledCarousel = styled(Slider)`
 const Carousel = () => {
     const [images, setImages] = useState([]);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [showDetails, setShowDetails] = useState(false);
     const sliderRef = useRef(null);
 
     useEffect(() => {
@@ -80,6 +82,12 @@ const Carousel = () => {
         fetchImages();
     }, []);
 
+    useEffect(() => {
+        if (showDetails) {
+            window.location.reload();
+        }
+    }, [showDetails]);
+
     const settings = {
         dots: false,
         infinite: true,
@@ -109,9 +117,12 @@ const Carousel = () => {
     const handleImageClick = index => {
         sessionStorage.setItem('idMovie', images[index].id);
         sliderRef.current.slickGoTo(index);
+        setShowDetails(true);
+        
     };
 
     return (
+        <>
         <StyledCarousel {...settings} ref={sliderRef}>
             {images.map((image, index) => (
                 <div key={image.id} className={`carousel-item ${index === currentSlide ? 'highlighted' : ''}`} onClick={() => handleImageClick(index)}>
@@ -127,6 +138,8 @@ const Carousel = () => {
                 </div>
             ))}
         </StyledCarousel>
+         {showDetails && <Navigate to="/details" replace />}
+         </>
     );
 };
 

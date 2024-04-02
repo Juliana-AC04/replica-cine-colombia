@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMovie, getAllMovies, getGenres } from "../services/movieServices";
+import { Navigate } from "react-router-dom";
 
 const getClassification = (adult, voteAverage) => {
   if (adult) {
@@ -14,8 +15,10 @@ const getClassification = (adult, voteAverage) => {
 };
 
 const Items = ({ movies, genres, movieRuntimes }) => {
+  const [showDetails, setShowDetails] = useState(false);
   const handleClick = (id) => {
     sessionStorage.setItem('idMovie', id);
+    setShowDetails(true);
   };
   return (
     <>
@@ -66,6 +69,7 @@ const Items = ({ movies, genres, movieRuntimes }) => {
             </div>
           </figcaption>
           </div>
+          {showDetails && <Navigate to="/details" replace />}
         </li>
       ))}
     </>
@@ -76,6 +80,7 @@ export default function ListMovies() {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState({});
   const [movieRuntimes, setMovieRuntimes] = useState({});
+  
 
   useEffect(() => {
     const showData = async () => {

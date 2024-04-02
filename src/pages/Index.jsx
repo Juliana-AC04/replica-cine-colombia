@@ -10,7 +10,6 @@ export default function Index() {
   return (
     <div>
       <Header/>
-      <ListMovies></ListMovies>
       <div className="flex flex-col sm:flex-row">
         <MovieDetails/>
         <Schedule/>

@@ -11,7 +11,7 @@ const Layout = () => {
         <NavBar/>
         <Carousel/>
         <Outlet/>
-        {/* <TicketSelection/> */}
+ esta la pueden borrar, era para
     </div>
   )
 }
