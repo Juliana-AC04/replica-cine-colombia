@@ -6,6 +6,7 @@ import { Login } from '../pages/Login/Login';
 // import MovieDetails from '../components/MovieDetails';
 import { CompraForm } from '../components/FormCompra/CompraForm';
 import ResumenCompra from '../components/FormCompra/ResumenCompraForm';
+import TicketDetails from '../components/TicketDetails';
 
 
 
@@ -28,6 +29,7 @@ const IndexRouter = () => {
           <Route path="/" element={<CompraForm />} />
           <Route path="/resumen" element={<ResumenCompra />} />
           <Route path="login" element={<Login />} />
+          <Route path="/tiketDetails" element={<TicketDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>
