@@ -106,9 +106,22 @@ const StyledTransac = styled.form`
 `
 
 const ResumenCompra = () => {
-  // Obtener datos del sessionStorage
-  const codigo = sessionStorage.getItem('codigo');
-  const total = sessionStorage.getItem('total');
+
+  const generarCodigo = () => {
+    const numeral = '#';
+    const numeros = Math.random().toString().substr(2, 10); // Generar 10 números aleatorios      
+    return numeral + numeros;
+  };  
+
+  const calcularTotal = () => {
+    // Lógica para calcular el total de la compra (en este caso, se podría hacer una llamada a una API o realizar algún cálculo local)
+    return 100; // Ejemplo de total calculado
+  };
+  const newTotal = calcularTotal();
+  const total = newTotal.toString()
+
+  // Generar código aleatorio
+  const codigo = generarCodigo();
   const numeroTarjeta = sessionStorage.getItem('numeroTarjeta');
 
   return (
