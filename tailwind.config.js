@@ -8,6 +8,8 @@ export default {
     extend: {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+        epilogue: ["Epilogue", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
     },
   },
