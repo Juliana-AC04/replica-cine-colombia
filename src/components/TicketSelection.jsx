@@ -54,7 +54,7 @@ const TicketSelection = () => {
   const seniorPrice = 56;
 
   return (
-    <div className="ml-20	 max-w-md">
+    <div className="max-w-md">
       <h3 className="text-xl font-bold mb-2">Selecciona tus boletos</h3>
       <p className="mb-8">Puedes comprar 10 boletos por transacción.</p>
 
