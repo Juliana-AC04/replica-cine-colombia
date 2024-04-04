@@ -8,6 +8,7 @@ import Details from "../pages/Details/Details";
 import Tickets from "../pages/Tickets/Tickets";
 import Summary from "../components/Summary";
 import Seats from "../components/Seats";
+import TicketDetails from "../components/TicketDetails";
 
 const IndexRouter = () => {
 
@@ -26,6 +27,7 @@ const IndexRouter = () => {
           </Route>          
           <Route path="login" element={<Login />} />
           <Route path="/tiketDetails" element={<TicketDetails />} />
+        
         </Route>
       </Routes>
     </BrowserRouter>
