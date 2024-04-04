@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Login } from '../../pages/Login/Login'
+import endpointBack from '../../services/endpointBack'
 
 
 const StyledNav = styled.nav`
@@ -78,21 +79,62 @@ const links = [
 ];
 
 const cines = [
-    { label: 'Marco Plaza del Mar', value: 'cine1' },
-    { label: 'Unicentro', value: 'cine2' },
-    { label: 'Teatro Colombia', value: 'cine3' }
+    { label: 'Unicentro', value: 'cine1' },
+    { label: 'Marco Plaza del Mar', value: 'cine2' }
 ];
 
-const fechas = [
-    { label: '08 de Abril', value: 'fecha1' },
-    { label: '09 de Abril', value: 'fecha2' },
-    { label: '10 de Abril', value: 'fecha3' }
-];
-  
+const idTeatros = {
+    cine1: 1,
+    cine2: 2
+};
 
-export const NavBar = () => {
+const getCurrentDate = () => {
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const year = currentDate.getFullYear();
+    return `${day}/${month}/${year}`;
+};
+
+export const NavBar = ({ setMovies }) => {
     const location = useLocation();
     const [showLogin, setShowLogin] = useState(false);
+    const [selectedCine, setSelectedCine] = useState("");
+    const [idTeatro, setIdTeatro] = useState(null);
+
+    const handleChangeCine = (value) => {
+        setSelectedCine(value);
+    };
+
+    useEffect(() => {
+        if (selectedCine !== "") {
+            setIdTeatro(idTeatros[selectedCine]);
+        }
+    }, [selectedCine]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (idTeatro !== null) {
+                    const endpoint = `https://miniback-webpack.onrender.com/programacion?idTeatro=${idTeatro}`;
+                    const response = await fetch(endpoint);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const data = await response.json();
+                    console.log("Data from backend:", data);
+
+                    const idPeliculas = data.flatMap(sala => sala.idPelicula);
+                    console.log("Peliculas:", idPeliculas);
+                    setMovies(idPeliculas);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, [idTeatro, setMovies]);
 
     const openLogin = () => {
         setShowLogin(true);
@@ -107,65 +149,61 @@ export const NavBar = () => {
     return (
         <StyledNav>
             <nav>
-                <ul  className="top-14 left-31 w-1377 h-58 flex justify-between bg-black">                    
+                <ul className="top-14 left-31 w-1377 h-58 flex justify-between bg-black">
+
                     {
-                    links.map((item, index)=><li key={index}>
-                        <NavLink className={({isActive})=>isActive?"link active":"link"} to={item.link}> 
-                        <div className="flex items-center mt-4 "> 
-                            <img className="w-42 h-31 rounded-6" src={item.image} alt="Home" />
-                            <span className="ml-2 font-inter text-base leading-22 font-normal text-gray-400">{item.label}</span>
-                        </div>
-                        </NavLink>
-                    </li>)
+                        links.map((item, index) => <li key={index}>
+                            <NavLink className={({ isActive }) => isActive ? "link active" : "link"} to={item.link}>
+                                <div className="flex items-center mt-4 ">
+                                    <img className="w-42 h-31 rounded-6" src={item.image} alt="Home" />
+                                    <span className="ml-2 font-inter text-base leading-22 font-normal text-gray-400">{item.label}</span>
+                                </div>
+                            </NavLink>
+                        </li>)
                     }
 
                     {showFilterButtons && (
                         <>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Acción</button>                                
+                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Acción</button>
                             </li>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Terror</button>                                
+                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Terror</button>
                             </li>
                             <li>
-                                <button className="mt-4 w-44 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>                                
+                                <button className="mt-4 w-44 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>
                             </li>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Comedia</button>                                
+                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Comedia</button>
                             </li>
                         </>
                     )}
-                                      
+
                     <li className='inputsLayo'>
                         <label htmlFor="cines">Cines cercanos</label>
-                        <select>
-                        {cines.map((item, index) => (
-                            <option key={index} value={item.value}>
-                                {item.label}
-                            </option>
-                        ))}
+                        <select value={selectedCine} onChange={(e) => handleChangeCine(e.target.value)}>
+                            <option value="">Selecciona un cine</option>
+                            {cines.map((cine, index) => (
+                                <option key={index} value={cine.value}>{cine.label}</option>
+                            ))}
                         </select>
                     </li>
                     <li className='inputsLayo'>
                         <label htmlFor="cines">Fecha</label>
                         <select>
-                        {fechas.map((item, index) => (
-                            <option key={index} value={item.value}>
-                                {item.label}
+                            <option>
+                                {getCurrentDate()}
                             </option>
-                        ))}
                         </select>
                     </li>
                     <li className="mt-4">
-                        <button onClick={openLogin} style={{cursor: 'pointer' }}>
-                        <img src='./src/assets/layout/LOGIN.png' alt="Login" />
+                        <button onClick={openLogin} style={{ cursor: 'pointer' }}>
+                            <img src='./src/assets/layout/LOGIN.png' alt="Login" />
                         </button>
-                        {showLogin && <Login onClose={closeLogin} />} {/* Renderiza el componente Login si showLogin es true */}
-                    </li>                   
-                </ul>                
-
-               
+                        {showLogin && <Login onClose={closeLogin} />}
+                    </li>
+                </ul>
             </nav>
         </StyledNav>
     );
-}
+};
