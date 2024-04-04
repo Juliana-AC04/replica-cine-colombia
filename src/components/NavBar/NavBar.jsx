@@ -52,6 +52,7 @@ const StyledNav = styled.nav`
         }
         option {
             background: black;
+            
              
         }
     }
@@ -65,6 +66,7 @@ const StyledNav = styled.nav`
 
         .inputsLayo select {
             width: 100%; /* Ocupar todo el ancho disponible */
+            
         }
     }
 
