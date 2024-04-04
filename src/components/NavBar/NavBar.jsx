@@ -51,6 +51,7 @@ const StyledNav = styled.nav`
         }
         option {
             background: black;
+            
              
         }
     }
@@ -64,6 +65,7 @@ const StyledNav = styled.nav`
 
         .inputsLayo select {
             width: 100%; /* Ocupar todo el ancho disponible */
+            
         }
     }
 
@@ -122,7 +124,7 @@ export const NavBar = () => {
                     {showFilterButtons && (
                         <>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Acción</button>                                
+                                <button className="mt-4  w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Acción</button>                                
                             </li>
                             <li>
                                 <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Terror</button>                                
@@ -156,7 +158,7 @@ export const NavBar = () => {
                         ))}
                         </select>
                     </li>
-                    <li className="mt-4">
+                    <li className="mt-4 ">
                         <button onClick={openLogin} style={{cursor: 'pointer' }}>
                         <img src='./src/assets/layout/LOGIN.png' alt="Login" />
                         </button>
