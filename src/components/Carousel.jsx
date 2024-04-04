@@ -35,11 +35,10 @@ const StyledCarousel = styled(Slider)`
   }
 `;
 
-const Carousel = () => {
+const Carousel = ({ selectedMovies }) => {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  // const [showDetails, setShowDetails] = useState(false);
   const sliderRef = useRef(null);
 
   useEffect(() => {
@@ -70,20 +69,14 @@ const Carousel = () => {
             })
             .filter((genre) => genre !== ""),
         }));
-        setImages(fetchedImages);
+        setImages(fetchedImages.filter((image) => selectedMovies.includes(image.id)));
       } catch (error) {
         console.error("Error fetching images:", error);
       }
     };
 
     fetchImages();
-  }, []);
-
-  // useEffect(() => {
-  //     if (showDetails) {
-  //         window.location.reload();
-  //     }
-  // }, [showDetails]);
+  }, [selectedMovies]);
 
   const settings = {
     dots: false,

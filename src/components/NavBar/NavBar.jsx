@@ -98,7 +98,7 @@ const getCurrentDate = () => {
     return `${day}/${month}/${year}`;
 };
 
-export const NavBar = ({ setMovies }) => {
+export const NavBar = ({ setSelectedMovies }) => {
     const location = useLocation();
     const [showLogin, setShowLogin] = useState(false);
     const [selectedCine, setSelectedCine] = useState("");
@@ -128,7 +128,7 @@ export const NavBar = ({ setMovies }) => {
 
                     const idPeliculas = data.flatMap(sala => sala.idPelicula);
                     console.log("Peliculas:", idPeliculas);
-                    setMovies(idPeliculas);
+                    setSelectedMovies(idPeliculas);
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -136,7 +136,7 @@ export const NavBar = ({ setMovies }) => {
         };
 
         fetchData();
-    }, [idTeatro, setMovies]);
+    }, [idTeatro, setSelectedMovies]);
 
     const openLogin = () => {
         setShowLogin(true);
