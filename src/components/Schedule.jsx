@@ -148,10 +148,6 @@ export default function Schedule() {
               Se realizara un cargo por servicio por cada boleto dentro de la
               orden.
             </p>
-            {/* <div className="flex justify-between">
-              <p className="font-bold">{`Total(IVA incluido):`}</p>
-              <p>$0</p>
-            </div> */}
           </section>
           <div className="flex justify-between mt-4">
             <button
