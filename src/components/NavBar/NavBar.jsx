@@ -173,10 +173,10 @@ export const NavBar = ({ setSelectedMovies }) => {
                     {showFilterButtons && (
                         <>
                             <li>
-                                <button onClick={() => handleGenreFilter('Acción')} className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Acción</button>
+                                <button onClick={() => handleGenreFilter('Animación')} className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Animación</button>
                             </li>
                             <li>
-                                <button onClick={() => handleGenreFilter('Terror')} className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Terror</button>
+                                <button onClick={() => handleGenreFilter('Aventura')} className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Aventura</button>
                             </li>
                             <li>
                                 <button onClick={() => handleGenreFilter('Ciencia ficción')} className="mt-4 w-44 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>
