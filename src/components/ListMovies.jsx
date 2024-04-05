@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { getMovie, getAllMovies, getGenres } from "../services/movieServices";
 import { useNavigate } from "react-router-dom";
 import { SelectedMoviesContext } from "./Layout/Layout";
+import SelectedGenerContext from "./NavBar/SelectedGenerContext";
 
 const getClassification = (adult, voteAverage) => {
   if (adult) {
@@ -77,45 +78,49 @@ const Items = ({ movies, genres, movieRuntimes }) => {
 
 export default function ListMovies() {
   const { selectedMovies } = useContext(SelectedMoviesContext);
-
-
+  const { selectedGenre } = useContext(SelectedGenerContext); // Accede al género seleccionado
+ 
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState({});
   const [movieRuntimes, setMovieRuntimes] = useState({});
-
-
+ 
   useEffect(() => {
-    const showData = async () => {
-      try {
-        const moviesData = await getAllMovies();
-        const genresData = await getGenres();
-
-        const genresObject = {};
-        genresData.forEach((genre) => {
-          genresObject[genre.id] = genre.name;
-        });
-
-        setGenres(genresObject);
-
-        // Filtrar las películas seleccionadas
-        const selectedMoviesData = moviesData.results.filter(movie => selectedMovies.includes(movie.id));
-
-        // Obtener los datos de las películas seleccionadas
-        const runtimeData = {};
-        for (const movie of selectedMoviesData) {
-          const movieData = await getMovie(movie.id);
-          runtimeData[movie.id] = movieData.runtime;
-        }
-
-        setMovieRuntimes(runtimeData);
-        setMovies(selectedMoviesData); // Actualizar el estado con las películas seleccionadas
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    showData();
-  }, [selectedMovies]); // Asegúrate de que selectedMovies esté en la lista de dependencias
+     const showData = async () => {
+       try {
+         const moviesData = await getAllMovies();
+         const genresData = await getGenres();
+ 
+         const genresObject = {};
+         genresData.forEach((genre) => {
+           genresObject[genre.id] = genre.name;
+         });
+ 
+         setGenres(genresObject);
+ 
+         // Filtrar las películas seleccionadas y por género solo si hay un género seleccionado
+         const selectedMoviesData = selectedGenre
+           ? moviesData.results.filter(movie => 
+               selectedMovies.includes(movie.id) && 
+               movie.genre_ids.some(genreId => genresObject[genreId] === selectedGenre) // Asegúrate de que esto funcione según tu estructura de datos
+             )
+           : moviesData.results.filter(movie => selectedMovies.includes(movie.id));
+ 
+         // Obtener los datos de las películas seleccionadas
+         const runtimeData = {};
+         for (const movie of selectedMoviesData) {
+           const movieData = await getMovie(movie.id);
+           runtimeData[movie.id] = movieData.runtime;
+         }
+ 
+         setMovieRuntimes(runtimeData);
+         setMovies(selectedMoviesData); // Actualizar el estado con las películas seleccionadas
+       } catch (error) {
+         console.error(error);
+       }
+     };
+ 
+     showData();
+  }, [selectedMovies, selectedGenre]);
 
 
   return (
