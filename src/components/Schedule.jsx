@@ -12,6 +12,7 @@ export default function Schedule() {
   const { idMovie } = useParams();
   const [schedule, setSchedule] = useState([]);
   
+  
   useEffect(() => {
     const fetchMovieInfo = async () => {
       try {
