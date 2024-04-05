@@ -5,10 +5,12 @@ import SelectedTimeContext from '../context/SelectedTimeContext';
 import { TicketProvider } from '../context/TicketContext';
 import { useState } from 'react';
 import { createContext } from 'react';
+import SelectedGenerContext from '../NavBar/SelectedGenerContext';
 
 export const SelectedMoviesContext = createContext();
 
 const Layout = () => {
+  const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedTime, setSelectedTime] = useState("");
 
   const [selectedMovies, setSelectedMovies] = useState([]);
@@ -16,6 +18,7 @@ const Layout = () => {
   return (
     <>
     <TicketProvider>
+      <SelectedGenerContext.Provider value={{ selectedGenre, setSelectedGenre}}>
       <SelectedTimeContext.Provider value={{ selectedTime, setSelectedTime }}>
       <SelectedMoviesContext.Provider value={{ selectedMovies, setSelectedMovies }}>
     <div>
@@ -25,6 +28,7 @@ const Layout = () => {
         </div>
     </SelectedMoviesContext.Provider>
     </SelectedTimeContext.Provider>
+    </SelectedGenerContext.Provider>
     </TicketProvider>
     </>
   );

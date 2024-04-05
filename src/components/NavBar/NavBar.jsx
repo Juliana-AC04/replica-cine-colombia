@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Login } from '../../pages/Login/Login'
+import SelectedGenerContext from './SelectedGenerContext'
 
 
 const StyledNav = styled.nav`
@@ -100,7 +101,7 @@ const getCurrentDate = () => {
 export const NavBar = ({ setSelectedMovies }) => {
     const location = useLocation();
     const [showLogin, setShowLogin] = useState(false);
-    const [selectedCine, setSelectedCine] = useState("");
+    const [selectedCine, setSelectedCine] = useState(cines[0].value); // Películas del primer cine por defecto
     const [idTeatro, setIdTeatro] = useState(null);
 
     const handleChangeCine = (value) => {
@@ -112,6 +113,12 @@ export const NavBar = ({ setSelectedMovies }) => {
             setIdTeatro(idTeatros[selectedCine]);
         }
     }, [selectedCine]);
+
+    const { setSelectedGenre } = useContext(SelectedGenerContext);
+
+    const handleGenreFilter = (genre) => {
+        setSelectedGenre(genre);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -166,16 +173,16 @@ export const NavBar = ({ setSelectedMovies }) => {
                     {showFilterButtons && (
                         <>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Acción</button>
+                                <button onClick={() => handleGenreFilter('Animación')} className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Animación</button>
                             </li>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Terror</button>
+                                <button onClick={() => handleGenreFilter('Aventura')} className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Aventura</button>
                             </li>
                             <li>
-                                <button className="mt-4 w-44 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>
+                                <button onClick={() => handleGenreFilter('Ciencia ficción')} className="mt-4 w-44 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Ciencia Ficción</button>
                             </li>
                             <li>
-                                <button className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Comedia</button>
+                                <button onClick={() => handleGenreFilter('Comedia')} className="mt-4 w-24 h-9 bg-blue-700 rounded-full shadow-md font-inter text-base leading-normal font-normal text-white">Comedia</button>
                             </li>
                         </>
                     )}
