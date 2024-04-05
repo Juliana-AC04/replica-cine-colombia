@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Outlet } from "react-router-dom";
-import { getMovie } from "../services/movieServices";
+import { getMovie, getMovieSchedule } from "../services/movieServices";
 import Swal from "sweetalert2";
 import SelectedTimeContext from "./context/SelectedTimeContext";
 
@@ -11,7 +11,9 @@ export default function Schedule() {
   const navigate = useNavigate();
   const { idMovie } = useParams();
   const { selectedTime, setSelectedTime } = useContext(SelectedTimeContext);
-
+  const [schedule, setSchedule] = useState([]);
+  
+  
   useEffect(() => {
     const fetchMovieInfo = async () => {
       try {
@@ -26,6 +28,21 @@ export default function Schedule() {
 
     fetchMovieInfo();
   }, [idMovie]);
+
+  useEffect(() => {
+    getMovieSchedule(idMovie)
+      .then((response) => {
+        setSchedule(response);
+      })
+      .catch((error) => console.error(error));
+  }, [idMovie]);
+
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const options = {year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate2 = new Intl.DateTimeFormat('es-ES', options).format(currentDate);
+
+  const availableHours = schedule.find(item => item.fechas.includes(formattedDate))?.horas;
 
   const handleTimeSelection = (time) => {
     setSelectedTime(time);
@@ -46,14 +63,24 @@ export default function Schedule() {
         icon: "error",
         title: "¡Error!",
         text: "Por favor, selecciona un horario antes de continuar.",
+        icon: "error",
+        title: "¡Error!",
+        text: "Por favor, selecciona un horario antes de continuar.",
       });
     }
   };
 
   const handleConfirmSchedule = () => {
-    console.log("Hora confirmada:", selectedTime);
-    setShowSummary(true);
-    navigate(`/details/${idMovie}/movie/tickets`);
+    if (selectedTime) {
+      setShowSummary(true);
+      navigate(`/details/${idMovie}/movie/tickets`);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "¡Error!",
+        text: "Por favor, selecciona un horario antes de continuar.",
+      });
+    }
   };
 
   return (
@@ -62,52 +89,41 @@ export default function Schedule() {
       {!showSummary ? (
         <div>
           <h2 className="text-2xl font-bold text-gray-600">
-            Horarios Disponibles - 30 de marzo
+            Horarios Disponibles - {formattedDate2}
           </h2>
           <div>
             <p className="text-lg text-black mt-2">
-              Elige el horario que prefieras
+              {availableHours ? "Elige el horario que prefieras" : "No hay horas disponibles para esta película en esta fecha"}
             </p>
-            <h3 className="font-bold text-lg mt-5">Macro plaza del mar</h3>
-            <div className="flex flex-row my-5">
-              <span
-                className={`rounded border px-2 py-1 mr-2 cursor-pointer ${
-                  selectedButton === "18:00"
-                    ? "bg-blue-950 text-white"
-                    : "border-slate-500 hover:bg-stone-700 hover:text-white"
-                }`}
-                onClick={() => handleTimeSelection("18:00")}
-              >
-                18:00
-              </span>
-              <span
-                className={`rounded border px-2 py-1 mr-2 cursor-pointer ${
-                  selectedButton === "19:30"
-                    ? "bg-blue-950 text-white"
-                    : "border-slate-500 hover:bg-stone-700 hover:text-white"
-                }`}
-                onClick={() => handleTimeSelection("19:30")}
-              >
-                19:30
-              </span>
-              <span
-                className={`rounded border px-2 py-1 mr-2 cursor-pointer ${
-                  selectedButton === "21:05"
-                    ? "bg-blue-950 text-white"
-                    : "border-slate-500 hover:bg-stone-700 hover:text-white"
-                }`}
-                onClick={() => handleTimeSelection("21:05")}
-              >
-                21:05
-              </span>
-            </div>
+            {availableHours && (
+              <div>
+                <h3 className="font-bold text-lg mt-5">Macro plaza del mar</h3>
+                <div className="flex flex-row my-5">
+                  {availableHours.map((time, index) => (
+                    <span
+                      key={index}
+                      className={`rounded border px-2 py-1 mr-2 cursor-pointer ${
+                        selectedButton === time
+                          ? "bg-blue-950 text-white"
+                          : "border-slate-500 hover:bg-stone-700 hover:text-white"
+                      }`}
+                      onClick={() => handleTimeSelection(time)}
+                    >
+                      {time}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          <button
-            className="bg-slate-400 p-2 text-white w-full rounded-full hover:bg-blue-950"
-            onClick={handleConfirmSelection}
-          >
-            Seleccionar boletos
-          </button>
+          {availableHours && (
+            <button
+              className="bg-slate-400 p-2 text-white w-full rounded-full hover:bg-blue-950"
+              onClick={handleConfirmSelection}
+            >
+              Seleccionar boletos
+            </button>
+          )}
         </div>
       ) : (
         <div className="bg-[#F4F4F4FF] p-4 rounded-lg">
@@ -117,25 +133,15 @@ export default function Schedule() {
           <section className="font-roboto">
             <figure className="flex gap-3">
               <img
-                className={`shadow-sm w-[5.6rem] h-[8rem] p-1 pb-3 border-2`}
-                src={`https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`}
-                alt={movieInfo.title}
-              />
-              <figcaption>
-                <p>
-                  <span className="font-bold">Pelicula:</span> {movieInfo.title}
-                </p>
-                <p>
-                  <span className="font-bold">Complejo:</span> Macro Plaza del
-                  Mar
-                </p>
-                <p>
-                  <span className="font-bold">Fecha:</span> 07 Julio del 2023
-                </p>
-                <p>
-                  <span className="font-bold">Función:</span> {selectedTime}
-                </p>
-              </figcaption>
+              className={`shadow-sm w-[5.6rem] h-[8rem] p-1 pb-3 border-2`} 
+              src={`https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`} alt={movieInfo.title}
+               />
+               <figcaption>
+               <p><span className="font-bold">Pelicula:</span> {movieInfo.title}</p>
+            <p><span className="font-bold">Complejo:</span> Macro Plaza del Mar</p>
+            <p><span className="font-bold">Fecha:</span>{formattedDate}</p>
+            <p><span className="font-bold">Función:</span> {selectedTime}</p>
+               </figcaption>
             </figure>
 
             <p className="pt-8 pb-4">

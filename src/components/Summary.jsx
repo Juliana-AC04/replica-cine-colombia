@@ -8,7 +8,7 @@ export default function Summary() {
   const { idMovie } = useParams();
   const [movieInfo, setMovieInfo] = useState(null);
   const { selectedTime } = useContext(SelectedTimeContext);
-  const { tickets, ticketInfo } = useContext(TicketContext);
+  const { tickets } = useContext(TicketContext);
 
   useEffect(() => {
     const fetchMovieInfo = async () => {

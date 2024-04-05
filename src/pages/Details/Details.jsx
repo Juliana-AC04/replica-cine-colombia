@@ -6,9 +6,9 @@ export default function Details() {
   const { idMovie } = useParams();
   return (
     <div className="flex flex-col sm:flex-row">
-      <MovieDetails idMovie={idMovie} />
-      <Schedule />
-      <Outlet />
-    </div>
-  );
+    <MovieDetails idMovie ={idMovie} />
+    <Schedule />
+    <Outlet />
+  </div>
+  )
 }
