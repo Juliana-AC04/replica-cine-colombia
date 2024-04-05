@@ -1,5 +1,6 @@
 import axios from "axios"
 import endpoint from "./endpoint"
+import endpointBack from "./endpointBack";
 
 export const getAllMovies = async() =>{
     try {
@@ -40,3 +41,23 @@ export const getGenres = async () => {
         return []
     }
 }
+
+export const getMovieSchedule = async (idMovie) =>{
+    try {
+        const {data} = await axios.get(endpointBack.getMovieSchedule(idMovie));
+        return data
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+export const getTheatreName = async (idTeatro) => {
+    try {
+      const {data} = await fetch(endpointBack.getTeatro(idTeatro));
+      return data
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+  };

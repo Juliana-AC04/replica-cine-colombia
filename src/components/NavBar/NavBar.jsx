@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Login } from '../../pages/Login/Login'
-import endpointBack from '../../services/endpointBack'
 
 
 const StyledNav = styled.nav`
