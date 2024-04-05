@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Outlet } from "react-router-dom";
 import { getMovie, getMovieSchedule } from "../services/movieServices";
 import Swal from "sweetalert2";
+import SelectedTimeContext from "./context/SelectedTimeContext";
 
 export default function Schedule() {
   const [showSummary, setShowSummary] = useState(false);
-  const [selectedTime, setSelectedTime] = useState("");
   const [selectedButton, setSelectedButton] = useState("");
   const [movieInfo, setMovieInfo] = useState(null);
   const navigate = useNavigate();
   const { idMovie } = useParams();
+  const { selectedTime, setSelectedTime } = useContext(SelectedTimeContext);
   const [schedule, setSchedule] = useState([]);
   
   
@@ -21,7 +22,7 @@ export default function Schedule() {
           setMovieInfo(movieData);
         }
       } catch (error) {
-        console.error("Error al obtener la información de la película:", error);
+        console.error(error);
       }
     };
 
@@ -59,6 +60,9 @@ export default function Schedule() {
       setShowSummary(true);
     } else {
       Swal.fire({
+        icon: "error",
+        title: "¡Error!",
+        text: "Por favor, selecciona un horario antes de continuar.",
         icon: "error",
         title: "¡Error!",
         text: "Por favor, selecciona un horario antes de continuar.",
@@ -129,29 +133,25 @@ export default function Schedule() {
           <section className="font-roboto">
             <figure className="flex gap-3">
               <img
-                className={`shadow-sm w-[5.6rem] h-[8rem] p-1 pb-3 border-2`}
-                src={`https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`}
-                alt={movieInfo.title}
-              />
-              <figcaption>
-                <p>
-                  <span className="font-bold">Pelicula:</span> {movieInfo.title}
-                </p>
-                <p>
-                  <span className="font-bold">Complejo:</span> Macro Plaza del Mar
-                </p>
-                <p>
-                  <span className="font-bold">Fecha:</span> {formattedDate}
-                </p>
-                <p>
-                  <span className="font-bold">Función:</span> {selectedTime}
-                </p>
-              </figcaption>
+              className={`shadow-sm w-[5.6rem] h-[8rem] p-1 pb-3 border-2`} 
+              src={`https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`} alt={movieInfo.title}
+               />
+               <figcaption>
+               <p><span className="font-bold">Pelicula:</span> {movieInfo.title}</p>
+            <p><span className="font-bold">Complejo:</span> Macro Plaza del Mar</p>
+            <p><span className="font-bold">Fecha:</span>{formattedDate}</p>
+            <p><span className="font-bold">Función:</span> {selectedTime}</p>
+               </figcaption>
             </figure>
 
             <p className="pt-8 pb-4">
-              Se realizara un cargo por servicio por cada boleto dentro de la orden.
+              Se realizara un cargo por servicio por cada boleto dentro de la
+              orden.
             </p>
+            {/* <div className="flex justify-between">
+              <p className="font-bold">{`Total(IVA incluido):`}</p>
+              <p>$0</p>
+            </div> */}
           </section>
           <div className="flex justify-between mt-4">
             <button
