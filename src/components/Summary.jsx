@@ -36,7 +36,7 @@ export default function Summary() {
       adultTickets * adultPrice +
       childTickets * childPrice +
       seniorTickets * seniorPrice;
-    const iva = 0.19;
+    const iva = 0.19; // 19%
     const totalPriceWithIVA = subtotal * (1 + iva);
     return totalPriceWithIVA;
   };
@@ -48,7 +48,7 @@ export default function Summary() {
     adultPrice,
     childPrice,
     seniorPrice
-  );
+  ).toFixed(2);
   
   
 
