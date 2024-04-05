@@ -100,7 +100,7 @@ const getCurrentDate = () => {
 export const NavBar = ({ setSelectedMovies }) => {
     const location = useLocation();
     const [showLogin, setShowLogin] = useState(false);
-    const [selectedCine, setSelectedCine] = useState("");
+    const [selectedCine, setSelectedCine] = useState(cines[0].value); // Películas del primer cine por defecto
     const [idTeatro, setIdTeatro] = useState(null);
 
     const handleChangeCine = (value) => {
@@ -135,7 +135,7 @@ export const NavBar = ({ setSelectedMovies }) => {
         };
 
         fetchData();
-    }, [idTeatro, setSelectedMovies]);
+    }, [idTeatro, selectedCine, setSelectedMovies]); // Agregar selectedCine como dependencia
 
     const openLogin = () => {
         setShowLogin(true);
