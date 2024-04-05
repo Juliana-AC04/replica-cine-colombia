@@ -2,14 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { getMovie } from "../services/movieServices";
 import SelectedTimeContext from "./context/SelectedTimeContext";
+import TicketContext from "./context/TicketContext";
 
 export default function Summary() {
   const { idMovie } = useParams();
   const [movieInfo, setMovieInfo] = useState(null);
   const { selectedTime } = useContext(SelectedTimeContext);
+  const { tickets, ticketInfo } = useContext(TicketContext);
 
   useEffect(() => {
-    const fecthMovieInfo = async () => {
+    const fetchMovieInfo = async () => {
       try {
         const movieInfo = await getMovie(idMovie);
         setMovieInfo(movieInfo);
@@ -18,14 +20,21 @@ export default function Summary() {
       }
     };
 
-    fecthMovieInfo();
+    fetchMovieInfo();
   }, [idMovie]);
-
-  console.log("DATAAAAAAAAA:", movieInfo);
 
   const handleConfirmSchedule = () => {
     console.log('continuar')
   }
+
+  const adultPrice = 71;
+  const childPrice = 56;
+  const seniorPrice = 56;
+
+  const totalPrice =
+    tickets.adultTickets * adultPrice +
+    tickets.childTickets * childPrice +
+    tickets.seniorTickets * seniorPrice;
 
   return (
     <>
@@ -58,6 +67,20 @@ export default function Summary() {
               <p>
                 <span className="font-bold">Función:</span> {selectedTime}
               </p>
+              <div className="flex flex-wrap">
+              <p>
+                    <span className="font-bold">Boletos:</span>
+                 </p>
+                 {tickets.adultTickets > 0 && (
+                    <p>Adultos({tickets.adultTickets})&nbsp;</p>
+                 )}
+                 {tickets.childTickets > 0 && (
+                    <p> Niños({tickets.childTickets})&nbsp;</p>
+                 )}
+                 {tickets.seniorTickets > 0 && (
+                    <p> 3ra Edad({tickets.seniorTickets})</p>
+                 )}
+              </div>
             </figcaption>
           </figure>
           )}
@@ -68,7 +91,7 @@ export default function Summary() {
               </p>
               <div className="flex justify-between font-bold">
                 <p>{`Total(IVA incluido):`}</p>
-                <p className="text-[2.563rem]">$0</p>
+                <p className="text-[2.563rem]">${totalPrice}</p>
               </div>
 
               <div className="flex justify-center pt-7">
