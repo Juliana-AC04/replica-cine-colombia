@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Outlet } from "react-router-dom";
 import { getMovie, getMovieSchedule } from "../services/movieServices";
 import Swal from "sweetalert2";

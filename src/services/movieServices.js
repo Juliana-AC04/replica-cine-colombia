@@ -54,10 +54,21 @@ export const getMovieSchedule = async (idMovie) =>{
 
 export const getTheatreName = async (idTeatro) => {
     try {
-      const {data} = await fetch(endpointBack.getTeatro(idTeatro));
+      const {data} = await  axios.get(endpointBack.getTeatro(idTeatro));
       return data
     } catch (error) {
         console.error(error);
         return []
     }
   };
+
+  export const getTicketInfo = async (idProgramacion) => {
+    try {
+      const {data} = await axios.get(endpointBack.getTicketInfo(idProgramacion));
+      return data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+  
