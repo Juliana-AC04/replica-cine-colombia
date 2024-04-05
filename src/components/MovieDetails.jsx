@@ -5,12 +5,10 @@ export default function MovieDetails({ idMovie = 0 }) {
   const [movie, setMovie] = useState(null);
   const [video, setVideo] = useState("");
 
-
   useEffect(() => {
     getMovie(idMovie)
       .then((response) => {
         setMovie(response);
-        console.log(response)
       })
       .catch((error) => console.error(error));
   }, [idMovie]);
