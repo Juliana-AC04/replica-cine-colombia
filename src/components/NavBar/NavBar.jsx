@@ -135,7 +135,7 @@ export const NavBar = ({ setSelectedMovies }) => {
         };
 
         fetchData();
-    }, [idTeatro, selectedCine, setSelectedMovies]); // Agregar selectedCine como dependencia
+    }, [idTeatro, setSelectedMovies]);
 
     const openLogin = () => {
         setShowLogin(true);
