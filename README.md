@@ -17,7 +17,7 @@ ultimos estrenos, comprando tu entrada directamente desde la aplicacion y asi mi
 - **Tailwind:**  para el diseño de la pagina web
 - **Servidor JSON:**  para  gestionar datos.
 
-### Tienda de la pantalla de la pagina 
+### Screenshop de la pagina 
 
 
 
