@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import TicketContext from "./context/TicketContext";
 
@@ -36,10 +36,23 @@ const TicketItem = styled.div`
 
 const TicketSelection = () => {
   const { tickets, updateTickets } = useContext(TicketContext);
+  const [totalTickets, setTotalTickets] = useState(0);
+
+  useEffect(() => {
+    setTotalTickets(tickets.adultTickets + tickets.childTickets + tickets.seniorTickets);
+  }, [tickets]);
 
   const adultPrice = 71;
   const childPrice = 56;
   const seniorPrice = 56;
+
+  const canIncrement = (ticketType) => {
+    return totalTickets < 10 && (totalTickets + 1 <= 10 || tickets[ticketType] < 10);
+  };
+
+  const canDecrement = (ticketType) => {
+    return tickets[ticketType] > 0;
+  };
 
   return (
     <div className="max-w-md">
@@ -52,28 +65,16 @@ const TicketSelection = () => {
         <div className="button-container">
           <button
             className="button"
-            onClick={() =>
-              updateTickets(
-                "adultTickets",
-                Math.max(tickets.adultTickets - 1, 0),
-                tickets.childTickets,
-                tickets.seniorTickets
-              )
-            }
+            onClick={() => canDecrement("adultTickets") && updateTickets("adultTickets", tickets.adultTickets - 1)}
+            disabled={!canDecrement("adultTickets")}
           >
             -
           </button>
           <span className="mr-8 ml-8">{tickets.adultTickets}</span>
           <button
             className="button active"
-            onClick={() =>
-              updateTickets(
-                "adultTickets",
-                tickets.adultTickets + 1,
-                tickets.childTickets,
-                tickets.seniorTickets
-              )
-            }
+            onClick={() => canIncrement("adultTickets") && updateTickets("adultTickets", tickets.adultTickets + 1)}
+            disabled={!canIncrement("adultTickets")}
           >
             +
           </button>
@@ -86,28 +87,16 @@ const TicketSelection = () => {
         <div className="button-container">
           <button
             className="button"
-            onClick={() =>
-              updateTickets(
-                "childTickets",
-                Math.max(tickets.childTickets - 1, 0),
-                tickets.adultTickets,
-                tickets.seniorTickets
-              )
-            }
+            onClick={() => canDecrement("childTickets") && updateTickets("childTickets", tickets.childTickets - 1)}
+            disabled={!canDecrement("childTickets")}
           >
             -
           </button>
           <span className="mr-8 ml-8">{tickets.childTickets}</span>
           <button
             className="button active"
-            onClick={() =>
-              updateTickets(
-                "childTickets",
-                tickets.childTickets + 1,
-                tickets.adultTickets,
-                tickets.seniorTickets
-              )
-            }
+            onClick={() => canIncrement("childTickets") && updateTickets("childTickets", tickets.childTickets + 1)}
+            disabled={!canIncrement("childTickets")}
           >
             +
           </button>
@@ -120,28 +109,16 @@ const TicketSelection = () => {
         <div className="button-container">
           <button
             className="button"
-            onClick={() =>
-              updateTickets(
-                "seniorTickets",
-                Math.max(tickets.seniorTickets - 1, 0),
-                tickets.adultTickets,
-                tickets.childTickets
-              )
-            }
+            onClick={() => canDecrement("seniorTickets") && updateTickets("seniorTickets", tickets.seniorTickets - 1)}
+            disabled={!canDecrement("seniorTickets")}
           >
             -
           </button>
           <span className="mr-8 ml-8">{tickets.seniorTickets}</span>
           <button
             className="button active"
-            onClick={() =>
-              updateTickets(
-                "seniorTickets",
-                tickets.seniorTickets + 1,
-                tickets.adultTickets,
-                tickets.childTickets
-              )
-            }
+            onClick={() => canIncrement("seniorTickets") && updateTickets("seniorTickets", tickets.seniorTickets + 1)}
+            disabled={!canIncrement("seniorTickets")}
           >
             +
           </button>
