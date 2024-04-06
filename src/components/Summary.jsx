@@ -12,6 +12,7 @@ export default function Summary() {
   const { tickets } = useContext(TicketContext);
   const navigate = useNavigate();
   const { theatreName } = useContext(ComplextCine);
+  const [scheduleConfirmed, setScheduleConfirmed] = useState(false);
 
   useEffect(() => {
     const fetchMovieInfo = async () => {
@@ -31,7 +32,20 @@ export default function Summary() {
     const newPath = currentPath.replace('/tickets', '/seats');
     navigate(newPath, { replace: true });
     console.log("continuar");
+    setScheduleConfirmed(true);
   };
+
+  const handleConfirmPay = () => {
+    if (!scheduleConfirmed) {
+      handleConfirmSchedule();
+      setScheduleConfirmed(true);
+    } else {
+      const currentPath = window.location.pathname;
+      const newPath = currentPath.replace('/seats', '/pago');
+      navigate(newPath, { replace: true });
+      console.log("continuar");
+    }
+ };
 
   const adultPrice = 71;
   const childPrice = 56;
@@ -126,7 +140,7 @@ export default function Summary() {
               <div className="flex justify-center pt-7">
                 <button
                   className="bg-slate-400 p-2 text-white rounded-full hover:bg-blue-950 w-[94%]"
-                  onClick={handleConfirmSchedule}
+                  onClick={handleConfirmPay}
                 >
                   Continuar
                 </button>
