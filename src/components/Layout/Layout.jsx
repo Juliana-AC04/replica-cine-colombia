@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { createContext } from 'react';
 import SelectedGenerContext from '../NavBar/SelectedGenerContext';
 import ComplextCine from '../context/ComplextCine';
+import RoomContext from '../context/RoomContext';
 
 export const SelectedMoviesContext = createContext();
 
@@ -14,12 +15,14 @@ const Layout = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedTime, setSelectedTime] = useState("");
   const [theatreName, setTheatreName] = useState(null);
+  const [room, setRoom] = useState(null)
 
   const [selectedMovies, setSelectedMovies] = useState([]);
   
   return (
     <>
     <TicketProvider>
+      <RoomContext.Provider value={{room, setRoom}}>
       <ComplextCine.Provider value={{ theatreName, setTheatreName }}>
       <SelectedGenerContext.Provider value={{ selectedGenre, setSelectedGenre}}>
       <SelectedTimeContext.Provider value={{ selectedTime, setSelectedTime }}>
@@ -33,6 +36,7 @@ const Layout = () => {
     </SelectedTimeContext.Provider>
     </SelectedGenerContext.Provider>
     </ComplextCine.Provider>
+    </RoomContext.Provider>
     </TicketProvider>
     </>
   );
