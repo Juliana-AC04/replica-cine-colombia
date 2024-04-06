@@ -69,7 +69,7 @@ export default function Summary() {
     <>
       <div className="flex justify-between w-4/5 m-20 mx-auto">
         <Outlet />
-        <section className="bg-[#F4F4F4FF] w-[43%] p-4 rounded-lg">
+        <section className="bg-[#F4F4F4FF] w-[43%] h-[57%] p-4 rounded-lg">
           <h2 className="text-2xl font-epilogue font-bold text-gray-600 pb-3">
             Resumen de compra
           </h2>
