@@ -6,7 +6,7 @@ del mundo del cine en colombia.
 
 ### Descripción
 El proyecto Modulo 2 Fronted Replica Cine Colombia, se enfoca en la creacion de una replica de cine colombia, donde se descubre una amplia seleccion de peliculas, desde clasicos hasta los
-ultimos estrenos, comprando tu entrada directamente desde la aplicacion y asi mismo garatizar tu mejor asiento en los teatros del cine. Utiliza tecnologias como React, vite , tailwind, axios ,condicionales, metodos de arrays, Media qquries, principios de codigo limpio, implementacion de servidor Json(API ), ont awesome para unos iconos, styled componentsSweetalert para mostrar las alertas.
+ultimos estrenos, comprando tu entrada directamente desde la aplicacion y asi mismo garantizar tu mejor asiento en los teatros del cine. Utiliza tecnologias como React, vite , tailwind, axios ,condicionales, metodos de arrays, Media queries, principios de codigo limpio, implementacion de servidor Json(API ), Font awesome para unos iconos, styled components, Sweetalert para mostrar las alertas.
 
 ### Tecnologias Utilizadas
 - **React router:** coleccion de componentes para navegacion.
@@ -22,7 +22,7 @@ ultimos estrenos, comprando tu entrada directamente desde la aplicacion y asi mi
 
 
 ### Estructura del proyecto
-La estructura de carpetas y archivos se ha organizado de manera cuidadosa para facilitar la comprension y contribuccion al proyecto.
+La estructura de carpetas y archivos se ha organizado de manera cuidadosa para facilitar la comprension y contribucion al proyecto.
 
 ![image](https://github.com/Juliana-AC04/replica-cine-colombia/assets/79147078/561af172-cac7-4293-9ffb-2dfb2bd4f9fa)
 
@@ -34,10 +34,10 @@ La estructura del mini backend <br>
 
 ## Control de versiones y Colaboracion 
 
-Este proyecto utiliza Git Flow es una metodología de trabajo basada en el control de versiones Git, que propone una estructura de ramificación y un conjunto de reglas para gestionar el flujo de trabajo en un proyecto. GitFlow proporciona una estructura clara y organizada para el flujo de trabajo en un proyecto, fomenta la creación de ramas específicas para cada tarea o característica lo que ayuda a mantener un historial de cambios limpio y ordenado y ayuda al mayor control de versiones estableciendo reglas claras sobre cuando y como se fusionan las ramas.
+Este proyecto utiliza Git Flow es una metodología de trabajo basada en el control de versiones Git, que propone una estructura de ramificación y un conjunto de reglas para gestionar el flujo de trabajo en un proyecto. Git Flow proporciona una estructura clara y organizada para el flujo de trabajo en un proyecto, fomenta la creación de ramas específicas para cada tarea o característica lo que ayuda a mantener un historial de cambios limpio y ordenado y ayuda al mayor control de versiones estableciendo reglas claras sobre cuando y como se fusionan las ramas.
 
 ## Fuentes de Informacion
-Durante el desarrollo del proyecto, se utilizaron diversas fuentes para obtener informacion ya que proporcionan el conocimiento necesario para comprender conceptosy teorías  en diversas áreas del conocimiento.
+Durante el desarrollo del proyecto, se utilizaron diversas fuentes para obtener informacion ya que proporcionan el conocimiento necesario para comprender conceptos y teorías  en diversas áreas del conocimiento.
 - You Tube
 - Google
 - IA
