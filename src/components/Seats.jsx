@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getMovieSchedule, getTheatreName, getTicketInfo } from "../services/movieServices";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
+import RoomContext from "./context/RoomContext";
 
 export default function Seats() {
   const { idMovie } = useParams();
   const [schedule, setSchedule] = useState({});
   const [idTeatro, setIdTeatro] = useState(null);
-  const [sala, setSala] = useState(null);
+  // const [sala, setSala] = useState(null);
   const [idProgramacion, setIdProgramacion] = useState(null);
   const [asientos, setAsientos] = useState({});
   const [asientosSeleccionados, setAsientosSeleccionados] = useState([]);
   const [asientosOcupados, setAsientosOcupados] = useState([]);
+
+  const { room, setRoom } = useContext(RoomContext);
 
   useEffect(() => {
     getMovieSchedule(idMovie)
@@ -21,7 +24,7 @@ export default function Seats() {
           const scheduleData = response[0];
           setSchedule(scheduleData);
           setIdTeatro(scheduleData.idTeatro);
-          setSala(scheduleData.sala);
+          setRoom(scheduleData.sala);
           setIdProgramacion(scheduleData.id);
         }
       })
@@ -29,16 +32,16 @@ export default function Seats() {
   }, [idMovie]);
 
   useEffect(() => {
-    if (idTeatro && sala) {
+    if (idTeatro && room) {
       getTheatreName(idTeatro)
         .then((response) => {
-          if (`Sala${sala}` in response[0].asientos) {
-            setAsientos(response[0].asientos[`Sala${sala}`]);
+          if (`Sala${room}` in response[0].asientos) {
+            setAsientos(response[0].asientos[`Sala${room}`]);
           }
         })
         .catch((error) => console.error(error));
     }
-  }, [idTeatro, sala]);
+  }, [idTeatro, room]);
 
   useEffect(() => {
     if (idProgramacion) {
@@ -81,7 +84,7 @@ export default function Seats() {
           <p>Disponible</p>
         </div>
       </div>
-      <p>Sala: {sala}</p>
+      <p>Sala: {room}</p>
       <p>Asientos:</p>
       <div className="flex flex-col">
         {Object.keys(asientos).map((letra, index) => (

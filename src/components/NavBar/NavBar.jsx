@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { Login } from '../../pages/Login/Login'
 import SelectedGenerContext from './SelectedGenerContext'
 
-
 const StyledNav = styled.nav`
     ul{
         display: flex;
@@ -103,7 +102,6 @@ export const NavBar = ({ setSelectedMovies }) => {
     const [showLogin, setShowLogin] = useState(false);
     const [selectedCine, setSelectedCine] = useState(cines[0].value); // Películas del primer cine por defecto
     const [idTeatro, setIdTeatro] = useState(null);
-
     const handleChangeCine = (value) => {
         setSelectedCine(value);
     };

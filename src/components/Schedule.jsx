@@ -1,8 +1,9 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Outlet } from "react-router-dom";
-import { getMovie, getMovieSchedule } from "../services/movieServices";
+import { getMovie, getMovieSchedule, getTheatreName } from "../services/movieServices";
 import Swal from "sweetalert2";
 import SelectedTimeContext from "./context/SelectedTimeContext";
+import ComplextCine from "./context/ComplextCine";
 
 export default function Schedule() {
   const [showSummary, setShowSummary] = useState(false);
@@ -13,6 +14,8 @@ export default function Schedule() {
   const { selectedTime, setSelectedTime } = useContext(SelectedTimeContext);
   const [schedule, setSchedule] = useState([]);
   
+  const [theatre, setTheatre] = useState(null);
+  const { theatreName, setTheatreName } = useContext(ComplextCine);
   
   useEffect(() => {
     const fetchMovieInfo = async () => {
@@ -25,17 +28,38 @@ export default function Schedule() {
         console.error(error);
       }
     };
-
     fetchMovieInfo();
   }, [idMovie]);
 
   useEffect(() => {
+    // Obtener el horario de la película cuando cambia el ID de la película
     getMovieSchedule(idMovie)
       .then((response) => {
-        setSchedule(response);
+        // Verificar si la respuesta tiene elementos
+        if (response.length > 0) {
+          // Establecer el horario y el ID del teatro
+          setSchedule(response);
+          setTheatre(response[0].idTeatro);
+        }
       })
       .catch((error) => console.error(error));
   }, [idMovie]);
+  
+  useEffect(() => {
+    // Obtener el nombre del teatro cuando cambia el ID del teatro
+    if (theatre) {
+      getTheatreName(theatre)
+        .then((response) => {
+          // Verificar si la respuesta tiene elementos
+          if (response.length > 0) {
+            // Establecer el nombre del teatro
+            setTheatreName(response[0].nombre);
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [theatre]);
+  
 
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -97,7 +121,7 @@ export default function Schedule() {
             </p>
             {availableHours && (
               <div>
-                <h3 className="font-bold text-lg mt-5">Macro plaza del mar</h3>
+                <h3 className="font-bold text-lg mt-5">{theatreName}</h3>
                 <div className="flex flex-row my-5">
                   {availableHours.map((time, index) => (
                     <span
@@ -138,7 +162,7 @@ export default function Schedule() {
                />
                <figcaption>
                <p><span className="font-bold">Pelicula:</span> {movieInfo.title}</p>
-            <p><span className="font-bold">Complejo:</span> Macro Plaza del Mar</p>
+            <p><span className="font-bold">Complejo:</span>&nbsp;{theatreName}</p>
             <p><span className="font-bold">Fecha:</span>{formattedDate}</p>
             <p><span className="font-bold">Función:</span> {selectedTime}</p>
                </figcaption>

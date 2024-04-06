@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams, useNavigate } from "react-router-dom";
 import { getMovie } from "../services/movieServices";
 import SelectedTimeContext from "./context/SelectedTimeContext";
 import TicketContext from "./context/TicketContext";
+import ComplextCine from "./context/ComplextCine";
 
 export default function Summary() {
   const { idMovie } = useParams();
   const [movieInfo, setMovieInfo] = useState(null);
   const { selectedTime } = useContext(SelectedTimeContext);
   const { tickets } = useContext(TicketContext);
+  const navigate = useNavigate();
+  const { theatreName } = useContext(ComplextCine);
 
   useEffect(() => {
     const fetchMovieInfo = async () => {
@@ -24,6 +27,9 @@ export default function Summary() {
   }, [idMovie]);
 
   const handleConfirmSchedule = () => {
+    const currentPath = window.location.pathname;
+    const newPath = currentPath.replace('/tickets', '/seats');
+    navigate(newPath, { replace: true });
     console.log("continuar");
   };
 
@@ -82,8 +88,7 @@ export default function Summary() {
                     {movieInfo.title}
                   </p>
                   <p>
-                    <span className="font-bold">Complejo:</span> Macro Plaza del
-                    Mar
+                    <span className="font-bold">Complejo:</span> {theatreName}
                   </p>
                   <p>
                     <span className="font-bold">Fecha:</span> {formattedDate}
