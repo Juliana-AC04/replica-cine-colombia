@@ -36,6 +36,15 @@ La estructura del mini backend <br>
 
 Este proyecto utiliza Git Flow es una metodología de trabajo basada en el control de versiones Git, que propone una estructura de ramificación y un conjunto de reglas para gestionar el flujo de trabajo en un proyecto. Git Flow proporciona una estructura clara y organizada para el flujo de trabajo en un proyecto, fomenta la creación de ramas específicas para cada tarea o característica lo que ayuda a mantener un historial de cambios limpio y ordenado y ayuda al mayor control de versiones estableciendo reglas claras sobre cuando y como se fusionan las ramas.
 
+Para contribuir al proyecto, sigue estos pasos:
+1. Clona el repositorio desde GitHub:
+
+   git clone https://github.com/Juliana-AC04/replica-cine-colombia
+ 
+2. Cambia al directorio del repositorio clonado:
+   
+   cd replica-cine-colombia
+
 ## Fuentes de Informacion
 Durante el desarrollo del proyecto, se utilizaron diversas fuentes para obtener informacion ya que proporcionan el conocimiento necesario para comprender conceptos y teorías  en diversas áreas del conocimiento.
 - You Tube
